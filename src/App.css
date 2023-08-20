@@ -1,0 +1,11 @@
+.wrapper {
+	height: 100vh;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+
+@media all and (max-width: 1230px) {
+	.wrapper {
+		height: fit-content;		
+	}
+}
