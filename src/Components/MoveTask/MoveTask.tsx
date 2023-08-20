@@ -1,5 +1,5 @@
 import css from './MoveTask.module.css';
-import { TaskList, Issue } from '../../App';
+import { TaskList, Issue, IssueUndef } from '../../App';
 
 interface MoveTaskProps {
     updateTasks: (updatedListTasks: TaskList, updatedPrevListTasks?: TaskList)=> void, 
@@ -10,7 +10,7 @@ interface MoveTaskProps {
 
 function MoveTask({ updateTasks, optionList, listTasks, setButtonClicked }: MoveTaskProps) {
 	const handleChange = (e: any) => {
-		const newTask: Issue | undefined = optionList.issues.find((issue: Issue) => issue.name === e.target.value)
+		const newTask: IssueUndef = optionList.issues.find((issue: Issue) => issue.name === e.target.value)
 
         if (!newTask) throw new TypeError('The value was promised to always be there!');
 

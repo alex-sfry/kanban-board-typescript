@@ -15,7 +15,7 @@ interface ListProps {
 }
 
 const List = ({ title, listTasks, prevListTasks, updateTasks }: ListProps) => {
-	const [isButtonClicked, setButtonClicked] = useState<boolean>(false)
+	const [isButtonClicked, setButtonClicked] = useState<Boolean>(false)
 	const btnDisabled: boolean = listTasks.title !== 'backlog' && !prevListTasks.issues.length ? true : false
 
 	const handleClick = (): void => {

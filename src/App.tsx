@@ -6,8 +6,11 @@ import Footer from './Components/Footer';
 import initialState from './emptyMock'
 //import dataMock from './mock';
 
+export type IssueUndef = Issue | undefined;
+export type TaskListUndef =  TaskList | undefined;
+
 export interface Issue {
-    id: string,
+    id: string | number,
     name: string,
     description: string
 }

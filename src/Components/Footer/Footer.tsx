@@ -1,14 +1,14 @@
 import css from './Footer.module.css'
 import { LIST_TYPES } from '../../config';
-import { TaskList } from '../../App';
+import { TaskList, TaskListUndef } from '../../App';
 
 interface FooterProps {
     tasks: TaskList[]
 }
 
 const Footer = ({ tasks }: FooterProps) => {
-    const backlogTaskList: TaskList | undefined = tasks.find((list: TaskList) => list.title === LIST_TYPES.BACKLOG);
-    const finishedTaskList: TaskList | undefined = tasks.find((list: TaskList) => list.title === LIST_TYPES.FINISHED);
+    const backlogTaskList: TaskListUndef = tasks.find((list: TaskList) => list.title === LIST_TYPES.BACKLOG);
+    const finishedTaskList: TaskListUndef = tasks.find((list: TaskList) => list.title === LIST_TYPES.FINISHED);
 
     if (!backlogTaskList || !finishedTaskList) throw new TypeError('The value was promised to always be there!');
 

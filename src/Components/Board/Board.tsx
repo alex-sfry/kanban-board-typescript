@@ -1,7 +1,7 @@
 import css from './Board.module.css';
 import { LIST_TYPES, LIST_TITLES } from '../../config'
 import List from '../List';
-import { TaskList } from '../../App';
+import { TaskList, TaskListUndef } from '../../App';
 
 interface BoardProps {
     tasks: TaskList[], 
@@ -31,7 +31,7 @@ const Board = ({ tasks, setTasks }: BoardProps) => {
 		<div className={css.board}>
 			{Object.values(LIST_TYPES).map((type: string) => {
 				const currListIndex: number = tasks.findIndex((item: TaskList) => item.title === type)
-                const listTasks: TaskList | undefined = tasks.find((item: TaskList) => item.title === type);
+                const listTasks: TaskListUndef = tasks.find((item: TaskList) => item.title === type);
                 
                 if (listTasks === undefined) throw new TypeError('The value was promised to always be there!');
 

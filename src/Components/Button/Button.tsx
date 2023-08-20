@@ -3,10 +3,10 @@ import withCloseCross from '../withCloseCross';
 
 interface ButtonProps {
     children: any, 
-    btnClass: any,
-    disabled: any, 
+    btnClass: string,
+    disabled: boolean, 
     handleClick?: () => void, 
-    type: any /* "button" | "submit" | "reset" | undefined */
+    type: "button" | "submit" | "reset" | undefined
 }
 
 export const Button = ({ children, btnClass, disabled, handleClick, type }: ButtonProps) => {

@@ -4,6 +4,11 @@ import css from './TaskDetails.module.css'
 import { Button, Close } from '../Button/Button'
 import { TaskList, Issue } from '../../App';
 import { MainProps } from '../Main/Main'
+import { IssueUndef } from '../../App';
+
+type IssueNum =  [Issue, number];
+type IssueNumNull = IssueNum | null;
+type IssueNumNullUndef = IssueNumNull | undefined;
 
 
 const TaskDetails = ({ tasks, setTasks }: MainProps) => {
@@ -12,16 +17,16 @@ const TaskDetails = ({ tasks, setTasks }: MainProps) => {
 	const { id } = useParams()
 	const defaultDescription: string = 'This task has no description'
 
-	const getIssue = (): [Issue, number] => {
-		const currentIssue: ([Issue, number]  | null)[] = tasks.map((task: TaskList, index: number): [Issue, number] | null => {
-			const findIssue: Issue | undefined = task.issues.find((issue: Issue) => issue.id === id)
+	const getIssue = (): IssueNum => {
+		const currentIssue: IssueNumNull[] = tasks.map((task: TaskList, index: number): IssueNumNull => {
+			const findIssue: IssueUndef = task.issues.find((issue: Issue) => issue.id === id)
 			//return array: 1st element - issue object, 2nd element - index of task list
 			if (findIssue) return [findIssue, index]
 			//return null for all other issues
 			return null;
 		})
 
-        const currentIssueItem: [Issue, number] | null | undefined = currentIssue.find((item: [Issue, number] | null) => item !== null)
+        const currentIssueItem: IssueNumNullUndef = currentIssue.find((item: IssueNumNull) => item !== null)
 
         if (!currentIssueItem) throw new TypeError('The value was promised to always be there!');
 
@@ -37,7 +42,7 @@ const TaskDetails = ({ tasks, setTasks }: MainProps) => {
 	}
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
-		const currentIssue: [Issue, number] = getIssue()
+		const currentIssue: IssueNum = getIssue()
 		currentIssue[0].description = textValue;
 
 		const updatedTasks: TaskList[] = tasks.map((item: TaskList, index: number) => {
