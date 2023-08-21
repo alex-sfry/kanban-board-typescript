@@ -1,19 +1,18 @@
-import css from './Footer.module.css'
+import { useContext } from 'react';
+import css from './Footer.module.css';
 import { LIST_TYPES } from '../../config';
 import { TaskList, TaskListUndef } from '../../App';
+import { boardContext, globalContextData } from '../../context/Context';
 
-interface FooterProps {
-    tasks: TaskList[]
-}
+const Footer = () => {
+    const data: globalContextData = useContext(boardContext);
+    const { tasks } = data!;
 
-const Footer = ({ tasks }: FooterProps) => {
     const backlogTaskList: TaskListUndef = tasks.find((list: TaskList) => list.title === LIST_TYPES.BACKLOG);
     const finishedTaskList: TaskListUndef = tasks.find((list: TaskList) => list.title === LIST_TYPES.FINISHED);
 
-    if (!backlogTaskList || !finishedTaskList) throw new TypeError('The value was promised to always be there!');
-
-	const backlogCount: number = backlogTaskList.issues.length
-	const finishedCount: number = finishedTaskList.issues.length
+	const backlogCount: number = backlogTaskList!.issues.length
+	const finishedCount: number = finishedTaskList!.issues.length
 
 	return (
 		<footer className={css.footer}>

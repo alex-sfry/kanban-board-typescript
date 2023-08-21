@@ -1,22 +1,22 @@
+import { useContext } from 'react';
 import css from './MoveTask.module.css';
 import { TaskList, Issue, IssueUndef } from '../../App';
+import { listContext, listContextData } from '../List/List';
+import { boardContext } from '../../context/Context';
 
-interface MoveTaskProps {
-    updateTasks: (updatedListTasks: TaskList, updatedPrevListTasks?: TaskList)=> void, 
-    optionList: TaskList,
-    listTasks: TaskList, 
-    setButtonClicked: any
-}
+function MoveTask({ setButtonClicked }: any) {
+    const listData: listContextData = useContext(listContext)
+    const { listTasks, optionList } = listData!;
 
-function MoveTask({ updateTasks, optionList, listTasks, setButtonClicked }: MoveTaskProps) {
+    const data: any = useContext(boardContext);
+    const { updateTasks } = data;
+
 	const handleChange = (e: any) => {
 		const newTask: IssueUndef = optionList.issues.find((issue: Issue) => issue.name === e.target.value)
 
-        if (!newTask) throw new TypeError('The value was promised to always be there!');
-
 		const updatedListTasks: TaskList = {
 			title: listTasks.title,
-			issues: [...listTasks.issues, newTask]
+			issues: [...listTasks.issues, newTask!]
 		}
 		const updatedPrevListTasks: TaskList = {
 			title: optionList.title,

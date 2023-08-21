@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import css from './AddTask.module.css';
 import { Button } from '../Button/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskList } from '../../App';
+import { listContext, listContextData } from '../List/List';
+import { boardContext } from '../../context/Context';
 
-interface AddTaskProps {
-    updateTasks: (updatedListTasks: TaskList, updatedPrevListTasks?: TaskList)=> void, 
-    setButtonClicked: any,
-    listTasks: TaskList
-}
+function AddTask({ setButtonClicked }: any) {
+    const listData: listContextData = useContext(listContext)
+    const { listTasks } = listData!;
 
-function AddTask({ updateTasks, setButtonClicked, listTasks }: AddTaskProps) {
+    const data: any = useContext(boardContext);
+    const { updateTasks } = data;
+
 	const [title, setValue] = useState('')
 
 	const handleChange = (e:any): void => {

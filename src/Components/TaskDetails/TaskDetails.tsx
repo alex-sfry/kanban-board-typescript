@@ -1,17 +1,21 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import css from './TaskDetails.module.css'
 import { Button, Close } from '../Button/Button'
 import { TaskList, Issue } from '../../App';
-import { MainProps } from '../Main/Main'
 import { IssueUndef } from '../../App';
+import { boardContext } from '../../context/Context';
 
 type IssueNum =  [Issue, number];
 type IssueNumNull = IssueNum | null;
 type IssueNumNullUndef = IssueNumNull | undefined;
 
 
-const TaskDetails = ({ tasks, setTasks }: MainProps) => {
+const TaskDetails = () => {
+    const data: any = useContext(boardContext);
+    const tasks: any = data.tasks;
+    const setTasks: any = data.setTasks;
+
 	const [isActive, setIsActive] = useState<boolean>(false)
 	const [textValue, setTextValue] = useState<string>('')
 	const { id } = useParams()
@@ -28,18 +32,19 @@ const TaskDetails = ({ tasks, setTasks }: MainProps) => {
 
         const currentIssueItem: IssueNumNullUndef = currentIssue.find((item: IssueNumNull) => item !== null)
 
-        if (!currentIssueItem) throw new TypeError('The value was promised to always be there!');
-
-		return currentIssueItem
+		return currentIssueItem!
 	}
+
 	const handleClick = (): void => {
 		setIsActive(!isActive)
 		const currentIssue: Issue = getIssue()[0]
 		currentIssue.description ? setTextValue(currentIssue.description) : setTextValue(defaultDescription)
 	}
+
 	const onChange = (e: any) => {
 		setTextValue(e.target.value)
 	}
+
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
 		const currentIssue: IssueNum = getIssue()
@@ -55,6 +60,7 @@ const TaskDetails = ({ tasks, setTasks }: MainProps) => {
 		setTasks(updatedTasks)
 		setIsActive(!isActive)
 	}
+    
 	const renderConditions = () => {
 		const currentIssue: Issue = getIssue()[0]
 		if (!isActive) {
