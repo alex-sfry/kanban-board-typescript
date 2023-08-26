@@ -11,7 +11,7 @@ function AddTask({ setButtonClicked }: any) {
     const { listTasks } = listData!;
 
     const data: any = useContext(boardContext);
-    const { updateTasks } = data;
+    const { updateTasks, setTasks } = data;
 
 	const [title, setValue] = useState('')
 
@@ -25,7 +25,7 @@ function AddTask({ setButtonClicked }: any) {
 				title: listTasks.title,
 				issues: [...listTasks.issues, { id: uuidv4(), name: title, description: '' }]
 			}
-			updateTasks(updatedListTasks)
+			setTasks(updateTasks(updatedListTasks));
 		}
 		setButtonClicked(false)
 	}

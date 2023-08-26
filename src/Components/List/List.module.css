@@ -33,6 +33,10 @@
 	padding: 15px 0 17px;
 }
 
+.list > div {
+    position: relative;
+}
+
 .listItem {
 	background: #FFFFFF;
 	border-radius: 5px;
@@ -40,6 +44,20 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.deleteBtn {
+    position: absolute;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    top: 50%;
+    right: 4px;
+    transform: translateY(-50%);
+    background-image: url('../../Assets/delete.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
 }
 
 .listItem:hover {

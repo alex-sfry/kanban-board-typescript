@@ -9,7 +9,7 @@ function MoveTask({ setButtonClicked }: any) {
     const { listTasks, optionList } = listData!;
 
     const data: any = useContext(boardContext);
-    const { updateTasks } = data;
+    const { updateTasks, setTasks } = data;
 
 	const handleChange = (e: any) => {
 		const newTask: IssueUndef = optionList.issues.find((issue: Issue) => issue.name === e.target.value)
@@ -23,7 +23,7 @@ function MoveTask({ setButtonClicked }: any) {
 			issues: [...optionList.issues].filter((issue: Issue) => issue.name !== e.target.value)
 		}
 
-		updateTasks(updatedListTasks, updatedPrevListTasks)
+		setTasks(updateTasks(updatedListTasks, updatedPrevListTasks))
 		setButtonClicked(false)
 	}
 

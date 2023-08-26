@@ -21,7 +21,7 @@ const TasksContextProvider = ({ children }: any) => {
         window.localStorage.setItem('tasks', JSON.stringify(tasks))
     }, [tasks])
 
-    const updateTasks = (updatedListTasks: TaskList, updatedPrevListTasks?: TaskList): void => {
+    const updateTasks = (updatedListTasks: TaskList, updatedPrevListTasks?: TaskList): TaskList[] => {
 		const updatedListIndex: number = tasks.findIndex((task: TaskList) => task.title === updatedListTasks.title)
 		const updatedTasks: TaskList[] = tasks.map((item: TaskList, index: number) => {
 			if (index === updatedListIndex) {
@@ -36,8 +36,10 @@ const TasksContextProvider = ({ children }: any) => {
 			
 			return item;
 		})
-		setTasks(updatedTasks)
+
+        return updatedTasks;
 	}
+    
 
     const data: Data = {
         tasks: tasks,

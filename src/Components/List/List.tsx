@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import css from './List.module.css';
 import { Button } from '../Button/Button';
@@ -6,6 +6,7 @@ import image from '../../Assets/plus.svg';
 import MoveTask from '../MoveTask';
 import AddTask from '../AddTask';
 import { TaskList, Issue } from '../../App';
+import { boardContext, globalContextData } from '../../context/Context';
 
 interface ListProps {
     title: string,
@@ -28,12 +29,28 @@ const List = ({ title, listTasks, prevListTasks }: ListProps) => {
         optionList: prevListTasks
     }
 
+    const data: globalContextData = useContext(boardContext);
+    const { updateTasks, setTasks } = data!;
+
     const [isButtonClicked, setIsButtonClicked] = useState<Boolean>(false)
     const btnDisabled: boolean = listTasks.title !== 'backlog' && !prevListTasks.issues.length ? true : false
 
     const handleClick = (): void => {
         setIsButtonClicked(!isButtonClicked)
     }
+
+    const handleChange = (e: any): void => {
+        const delTaskId: any = e.target.parentElement.getAttribute('data-id');
+        const issues: Issue[] = listTasks.issues.filter((issue) => issue.id !== delTaskId)
+        
+        const updatedListTasks: TaskList = {
+            title: listTasks.title,
+            issues: issues
+        }
+
+        setTasks(updateTasks(updatedListTasks));
+	}
+
     const listControls = (): JSX.Element => {
         if (isButtonClicked && title === 'Backlog')
             return <AddTask
@@ -63,9 +80,13 @@ const List = ({ title, listTasks, prevListTasks }: ListProps) => {
                     <ul className={css.list}>
                         {listTasks.issues.map((issue: Issue) => {
                             return (
-                                <Link to={`/tasks/${issue.id}`} key={issue.id}>
-                                    <li className={css.listItem}>{issue.name}</li>
-                                </Link>
+                                <div key={issue.id} data-id={issue.id}>
+                                    <Link to={`/tasks/${issue.id}`} key={issue.id}>
+                                        <li className={css.listItem}>{issue.name}</li>                                    
+                                    </Link>
+                                    <button className={css.deleteBtn} onClick={handleChange}></button>
+                                </div>
+                                
                             )
                         })}
                     </ul>
