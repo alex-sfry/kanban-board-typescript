@@ -13,8 +13,8 @@ type IssueNumNullUndef = IssueNumNull | undefined;
 
 const TaskDetails = () => {
     const data: any = useContext(boardContext);
-    const tasks: any = data.tasks;
-    const setTasks: any = data.setTasks;
+    const { tasks } = data;
+    const { setTasks } = data;
 
 	const [isActive, setIsActive] = useState<boolean>(false)
 	const [textValue, setTextValue] = useState<string>('')
@@ -93,6 +93,7 @@ const TaskDetails = () => {
 	}
 
 	return (
+        id &&
 		<div className={isActive ? `${css.taskDetails} ${css.isEditActive}` : `${css.taskDetails}`}>
 			<h2 className={css.title}>{getIssue()[0].name}</h2>
 			{renderConditions()}
