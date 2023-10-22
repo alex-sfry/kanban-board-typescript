@@ -46,10 +46,6 @@
 }
 
 @media (hover: none) {
-	.btn, .btnClose {
-		cursor: auto;		
-	}
-
 	.btn:hover:not(.btnAdd[disabled], .btnSubmit) {
 		background: none;
 	}

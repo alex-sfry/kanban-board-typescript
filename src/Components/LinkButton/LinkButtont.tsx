@@ -7,19 +7,21 @@ interface LinkButtonProps {
     variant: string,
 }
 
-interface Variants {    
+interface Variants {
     crossLarge: string
-    
 }
 
+
 const LinkButton = ({ children, route, variant }: LinkButtonProps) => {
-    const variants: Variants = {
+    type T = keyof typeof variants;
+
+    const variants = {
         crossLarge: `${css.btn} ${css.crossLarge}`
     }
-    
+
 
 	return (
-        <div className={variants.crossLarge} >                       
+        <div className={variants[variant as keyof typeof variants]} >                       
             <Link to={route} >{children}</Link>
         </div>
 		
