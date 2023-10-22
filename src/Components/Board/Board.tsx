@@ -5,10 +5,11 @@ import List from '../List';
 import { TaskList, TaskListUndef } from '../../App';
 import { boardContext, globalContextData } from '../../context/Context';
 
+
 const Board = () => {
     const data: globalContextData = useContext(boardContext);
-
     const { tasks } = data!;
+
 
 	return (
 		<div className={css.board}>

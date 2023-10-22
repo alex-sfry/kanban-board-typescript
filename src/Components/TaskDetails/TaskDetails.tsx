@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import css from './TaskDetails.module.css'
-import { Button, Close } from '../Button/Button'
+import { Button } from '../Button/Button'
+import LinkButton from '../LinkButton/LinkButtont'
 import { TaskList, Issue } from '../../App';
 import { IssueUndef } from '../../App';
 import { boardContext } from '../../context/Context';
@@ -11,14 +12,16 @@ type IssueNumNull = IssueNum | null;
 type IssueNumNullUndef = IssueNumNull | undefined;
 
 
-const TaskDetails = () => {
+const TaskDetails: any = () => {
+    
     const data: any = useContext(boardContext);
     const { tasks } = data;
     const { setTasks } = data;
 
 	const [isActive, setIsActive] = useState<boolean>(false)
 	const [textValue, setTextValue] = useState<string>('')
-	const { id } = useParams()
+	
+    const { id } = useParams()
 	const defaultDescription: string = 'This task has no description'
 
 	const getIssue = (): IssueNum => {
@@ -93,14 +96,17 @@ const TaskDetails = () => {
 	}
 
 	return (
-        id &&
-		<div className={isActive ? `${css.taskDetails} ${css.isEditActive}` : `${css.taskDetails}`}>
+        <div className={isActive ? `${css.taskDetails} ${css.isEditActive}` : `${css.taskDetails}`}>
 			<h2 className={css.title}>{getIssue()[0].name}</h2>
 			{renderConditions()}
-			<Link to={'/'}>
-				<Close />
-			</Link>
+            <div className={css.closeBtnDiv}>
+                <LinkButton variant={'crossLarge'} route={'/'}>
+                    <span className={css.close}></span><span className={css.close}></span>
+                </LinkButton>
+            </div>
 		</div>
+        
+		
 	)
 }
 
